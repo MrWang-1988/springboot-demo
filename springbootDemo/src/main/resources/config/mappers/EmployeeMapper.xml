@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj.springboot.dao.EmployeeMapper">
+    
+    <resultMap id="empResultMap" type="employee">
+        <id column="EMPID" property="empId"/>
+        <result column="EMPNAME" property="empName"/>
+        <result column="GENDER" property="gender"/>
+        <result column="PHONE" property="phone"/>
+        <result column="ENTRYDAY" property="entryDate"/>
+        <result column="DEPT_ID" property="deptId"/>
+        <result column="CREATETIME" property="createTime"/>
+    </resultMap>
+    
+    <sql id="baseSql">EMPID,EMPNAME,GENDER,PHONE,ENTRYDAY,DEPT_ID,CREATETIME</sql>
+    
+	<select id="selectEmpById" parameterType="java.lang.String" resultMap="empResultMap">
+    	select <include refid="baseSql"/> from EN_EMPLOYEE where EMPID=#{empId}
+    </select>
+
+    <select id="selectEmpList"  parameterType="employee" resultMap="empResultMap">
+        select <include refid="baseSql"/> from EN_EMPLOYEE 
+        <where>
+        	<if test="null != empName and '' != empName">
+        		<!-- and EMPNAME like concat('%',#{empName},'%') -->
+        		and EMPNAME like "%"#{empName}"%"
+        	</if>
+        	<if test="null != deptId and '' != deptId">
+        		and DEPT_ID = #{deptId}
+        	</if>
+        	<if test="null != entryDate and '' != entryDate">
+        		and ENTRYDAY = #{entryDate}
+        	</if>
+        </where>
+    </select>
+
+
+	<insert id="addEmp" parameterType="employee">
+		insert into EN_EMPLOYEE (<include refid="baseSql"/>)
+		values
+		(#{empId},#{empName},#{gender},#{phone},#{entryDate},#{deptId},#{createTime})
+	</insert>
+
+    <update id="updateEmp" parameterType="employee" >
+        update EN_EMPLOYEE set EMPNAME=#{empName},GENDER=#{gender},PHONE =#{phone},ENTRYDAY=#{entryDate},DEPT_ID=#{deptId} where EMPID=#{empId}
+    </update>
+<!--     <insert id="insertByUserHasKey" parameterType="user">
+
+            <selectKey keyProperty="id" order="AFTER" resultType="int">
+                select LAST_INSERT_ID() as id
+            </selectKey>
+        insert into user (username,realname,password) values (#{username},#{realname},#{password})
+
+    </insert> -->
+
+
+<!--     <insert id="insertByUserBatch" parameterType="list" >
+        insert into user (username,realname,password) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.username},#{item.realname},#{item.password})
+        </foreach>
+    </insert> -->
+    
+    
+
+
+<!--     <update id="updataUserBatch" >
+        update user set password='88888888' where id in (
+                <foreach collection="array" item="item" separator="," index="index">
+                    #{item}
+                </foreach>
+                )
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+ -->
+<!--     <delete id="deleteUserBatch" parameterType="list">
+        delete from user where id in (
+        <foreach collection="list" item="item" separator="," index="index">
+            #{item}
+        </foreach>
+               
+    </delete> ) -->
+</mapper>

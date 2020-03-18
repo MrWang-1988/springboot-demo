@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>员工信息</title>
+<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+<script type="text/javascript" src="/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+	<div class="container">
+	  <div class="row">
+		<form class="form-horizontal" action="/emp" method="post">
+		  <div class="form-group">
+		    <label for="empName" class="col-md-2 control-label">员工名称</label>
+		    <div class="col-md-2">
+		      <input type="text" class="form-control" name="empName" id="empName" placeholder="员工名称">
+		    </div>
+		    <label for="gender" class="col-md-2 control-label">性别</label>
+		    <div class="col-md-2">
+<!-- 				<label class="radio-inline">
+				  <input type="radio" name="gender" id="genderM" value="M"> 男
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="gender" id="genderF" value="F"> 女
+				</label> -->
+				<select class="form-control" id="gender" name="gender">
+				  <option value="M">男</option>
+				  <option value="F">女</option>
+				</select>
+		    </div>		    
+		  </div>
+		  <div class="form-group">
+		    <label for="phone" class="col-md-2 control-label">联系方式</label>
+		    <div class="col-md-2">
+		      <input type="text" class="form-control" name="phone" id="phone" placeholder="联系方式">
+		    </div>
+		    <label for="entryDate" class="col-md-2 control-label">入职时间</label>
+		    <div class="col-md-2">
+		      <input type="date" class="form-control" name="entryDate" id="entryDate" placeholder="入职时间">
+		    </div>		    
+		  </div>
+		  <div class="form-group">
+		  	<label for="deptId" class="col-md-2 control-label">部门</label>
+		  	<div class="col-md-2">
+				<select class="form-control" id="deptId" name="deptId">
+				  <option value="1">人事部</option>
+				  <option value="2">开发部</option>
+				</select>		  	
+		  	</div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-md-offset-4 col-md-8">
+		      <button type="submit" class="btn btn-default">确定</button>
+		    </div>
+		  </div>
+		</form>	  
+	  </div>
+	</div>
+</body>
+</html>
